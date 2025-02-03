@@ -1,9 +1,9 @@
-import { Directive, ElementRef, inject, input, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, inject, input, OnChanges, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[appHighlight]'
 })
-export class HighlightDirective {
+export class HighlightDirective implements OnChanges{
   public highlightColor = input('')
 
   private elementRef = inject(ElementRef)
@@ -12,7 +12,7 @@ export class HighlightDirective {
   private render = inject(Renderer2)
 
 
-  ngOnInit():void {
+  ngOnChanges():void {
     console.log(this.highlightColor())
     this.render.setStyle(
       this.elementRef.nativeElement,
