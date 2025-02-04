@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { HighlightDirective } from './highlight.directive';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 
 @Component({
-  template: `<p appHighlight highlightColor="colorName">Test</p>`,
+  template: `<p appHighlight [highlightColor]="colorName">Test</p>`,
   standalone: true,
   imports: [HighlightDirective]
 
@@ -27,8 +28,7 @@ fdescribe('HighlightDirective', () => {
   })
 
   it('should create an instance of Host Component', () => {
-    const directive = new HighlightDirective();
-    expect(directive).toBeTruthy();
+    expect(component).toBeTruthy();
   });
 
   it('should create background based on directive param', () => {
@@ -37,7 +37,7 @@ fdescribe('HighlightDirective', () => {
 
     fixture.detectChanges();
 
-    const elementDirective = fixture.debugElement.nativeElement.querySelector('span').nativeElement as HTMLSpanElement;
+    const elementDirective = fixture.debugElement.query(By.css('p')).nativeElement as HTMLElement;
     expect(elementDirective.style.backgroundColor).toBe(expectedColor);
   })
 });
