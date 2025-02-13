@@ -13,7 +13,7 @@ class TestHostComponent {
   colorName = 'blue';
 }
 
-fdescribe('HighlightDirective', () => {
+describe('HighlightDirective', () => {
   let fixture: ComponentFixture<TestHostComponent>;
   let component: TestHostComponent;
 

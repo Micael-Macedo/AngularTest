@@ -1,1 +1,3 @@
-<p>async-comp works!</p>
+@for (fruit of (fruit$ | async); track $index) {
+  <span data-test-id="fruits">{{ fruit }}</span>
+}  
