@@ -3,10 +3,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AsyncCompComponent } from './async-comp.component';
 import { ApiService } from '../services/api.service';
 import { of } from 'rxjs';
+import { By } from '@angular/platform-browser';
 
 const expectedApiFruits = ['uva', 'morango']
 
-fdescribe('AsyncCompComponent', () => {
+describe('AsyncCompComponent', () => {
   let component: AsyncCompComponent;
   let fixture: ComponentFixture<AsyncCompComponent>;
   let apiServiceMock: jasmine.SpyObj<ApiService>
@@ -33,5 +34,15 @@ fdescribe('AsyncCompComponent', () => {
 
   it('should call fruits api on Init', () => {
     expect(apiServiceMock.getFruits).toHaveBeenCalled()
+  })
+
+  it('should render fruits from api', () => {
+    fixture.detectChanges()
+    const spanElements = fixture.debugElement.queryAll(By.css('[data-test-id=fruits]'));
+
+    spanElements.forEach(spanElement => {
+      const hasFruit = expectedApiFruits.includes((spanElement.nativeElement as HTMLElement).textContent!.trim())
+      expect(hasFruit).toBe(true);
+    })
   })
 });
