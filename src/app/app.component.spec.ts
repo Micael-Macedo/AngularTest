@@ -1,12 +1,19 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing'; // Importar o módulo de teste do HttpClient
 
-//ao adicionar o f para o describe irá rodar exclusivamente o que está com fdescribe, ignorando outros testes
 describe('AppComponent', () => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [AppComponent, HttpClientTestingModule], // Adicionar HttpClientTestingModule aos imports
     }).compileComponents();
+
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create the app', () => {
@@ -29,9 +36,10 @@ describe('AppComponent', () => {
   });
 
   it('should render title', () => {
+    const expectedResponse = "AngularTest"
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, AngularTest');
+    expect(compiled.querySelector('h1')?.textContent).toContain(expectedResponse);
   });
 });
